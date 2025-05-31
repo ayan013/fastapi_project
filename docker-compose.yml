@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  web:
+    build: ../../AppData/Roaming/JetBrains/PyCharm2025.1/scratches
+    expose:
+      - "8080"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - web
+    restart: unless-stopped
